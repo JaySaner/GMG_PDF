@@ -1,0 +1,6 @@
+{
+  "name": "GMG Delegate Portal",
+  "description": "Professional event management platform with real-time delegate registration, profile management, and admin analytics powered by Supabase",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["REAL_TIME_DATABASE", "AUTHENTICATION", "RESPONSIVE_UI"]
+}

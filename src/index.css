@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #000000;
+  --color-secondary: #775a19; /* Anniversary Gold */
+  --color-secondary-light: #e9c176;
+  --color-secondary-container: #fed488;
+  --color-on-secondary-container: #785a1a;
+  
+  --color-surface-bright: #f8f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  
+  --color-on-surface: #0b1c30;
+  --color-on-surface-variant: #45464d;
+  --color-outline-variant: #c6c6cd;
+  --color-primary-container: #131b2e;
+  --color-on-primary-container: #7c839b;
+  
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+/* Custom CSS Helpers for Elite Aesthetics */
+.topographic-bg {
+  background-color: #f8f9ff;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10 Q 60 0 110 10 Q 120 60 110 110 Q 60 120 10 110 Q 0 60 10 10' stroke='%23775a19' stroke-width='0.4' fill='none' opacity='0.04'/%3E%3Cpath d='M25 25 Q 60 15 95 25 Q 105 60 95 95 Q 60 105 25 95 Q 15 60 25 25' stroke='%23775a19' stroke-width='0.3' fill='none' opacity='0.03'/%3E%3Cpath d='M40 40 Q 60 30 80 40 Q 90 60 80 80 Q 60 90 40 80 Q 30 60 40 40' stroke='%23775a19' stroke-width='0.2' fill='none' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+.ambient-shadow {
+  box-shadow: 0 20px 40px rgba(11, 28, 48, 0.04);
+}
+
+.premium-shadow {
+  box-shadow: 0 24px 48px rgba(11, 28, 48, 0.05);
+}
+
+/* Style file input buttons elegantly */
+input[type="file"]::file-selector-button {
+  display: none;
+}
