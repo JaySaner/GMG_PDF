@@ -87,7 +87,7 @@ CREATE TABLE event_settings (
 -- Create activities table
 CREATE TABLE activities (
   id TEXT PRIMARY KEY,
-  user TEXT NOT NULL,
+  username TEXT NOT NULL,
   action TEXT NOT NULL,
   target TEXT,
   timestamp TEXT NOT NULL,
@@ -108,7 +108,7 @@ VALUES (
 -- Create indexes for better performance
 CREATE INDEX idx_attendees_status ON attendees(status);
 CREATE INDEX idx_attendees_company ON attendees(company);
-CREATE INDEX idx_activities_user ON activities(user);
+CREATE INDEX idx_activities_username ON activities(username);
 CREATE INDEX idx_activities_created_at ON activities(created_at);
 ```
 

@@ -127,7 +127,10 @@ export async function updateEventSettings(settings: Partial<EventSettings>) {
 export async function addActivity(activity: Activity) {
   const { data, error } = await supabase
     .from('activities')
-    .insert([activity])
+    .insert([{
+      ...activity,
+      username: activity.user
+    }])
     .select();
 
   if (error) throw error;
