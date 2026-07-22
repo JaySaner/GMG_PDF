@@ -312,8 +312,36 @@ export default function App() {
     );
   }
 
-  // Loading state
-  if (isLoading) {
+  // Error state
+  if (isLoading && !eventSettings && !attendees.length) {
+    // Check if Supabase is configured
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-surface-bright">
+          <div className="flex flex-col items-center gap-4 max-w-md">
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+              <X className="w-6 h-6 text-red-600" />
+            </div>
+            <h2 className="text-xl font-bold text-red-600">Configuration Required</h2>
+            <p className="text-sm text-on-surface-variant text-center">
+              Supabase environment variables are not configured. Please add:
+            </p>
+            <div className="bg-red-50 border border-red-200 rounded p-3 w-full text-xs font-mono">
+              <p>VITE_SUPABASE_URL</p>
+              <p>VITE_SUPABASE_ANON_KEY</p>
+            </div>
+            <p className="text-xs text-on-surface-variant text-center">
+              See VERCEL_DEPLOYMENT.md for setup instructions
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    // Loading
     return (
       <div className="min-h-screen flex items-center justify-center bg-surface-bright">
         <div className="flex flex-col items-center gap-4">

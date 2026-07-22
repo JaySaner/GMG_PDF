@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, hasSupabase } from '../lib/supabase';
 import { Attendee, EventSettings, Activity } from '../types';
 
 export function useAttendees() {
@@ -15,7 +15,13 @@ export function useAttendees() {
   useEffect(() => {
     const fetchAttendees = async () => {
       try {
-        const { data, error: fetchError } = await supabase
+        if (!hasSupabase) {
+          setError('Supabase not configured');
+          setLoading(false);
+          return;
+        }
+
+        const { data, error: fetchError } = await supabase!
           .from('attendees')
           .select('*')
           .order('dateSubmitted', { ascending: false });
@@ -43,7 +49,13 @@ export function useEventSettings() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const { data, error: fetchError } = await supabase
+        if (!hasSupabase) {
+          setError('Supabase not configured');
+          setLoading(false);
+          return;
+        }
+
+        const { data, error: fetchError } = await supabase!
           .from('event_settings')
           .select('*')
           .single();
@@ -71,7 +83,13 @@ export function useActivities() {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const { data, error: fetchError } = await supabase
+        if (!hasSupabase) {
+          setError('Supabase not configured');
+          setLoading(false);
+          return;
+        }
+
+        const { data, error: fetchError } = await supabase!
           .from('activities')
           .select('*')
           .order('timestamp', { ascending: false })
@@ -93,7 +111,9 @@ export function useActivities() {
 }
 
 export async function addAttendee(attendee: Attendee) {
-  const { data, error } = await supabase
+  if (!hasSupabase) throw new Error('Supabase not configured');
+  
+  const { data, error } = await supabase!
     .from('attendees')
     .insert([attendee])
     .select();
@@ -103,7 +123,9 @@ export async function addAttendee(attendee: Attendee) {
 }
 
 export async function updateAttendee(id: string, updates: Partial<Attendee>) {
-  const { data, error } = await supabase
+  if (!hasSupabase) throw new Error('Supabase not configured');
+  
+  const { data, error } = await supabase!
     .from('attendees')
     .update(updates)
     .eq('id', id)
@@ -114,7 +136,9 @@ export async function updateAttendee(id: string, updates: Partial<Attendee>) {
 }
 
 export async function updateEventSettings(settings: Partial<EventSettings>) {
-  const { data, error } = await supabase
+  if (!hasSupabase) throw new Error('Supabase not configured');
+  
+  const { data, error } = await supabase!
     .from('event_settings')
     .update(settings)
     .eq('id', 1)
@@ -125,7 +149,9 @@ export async function updateEventSettings(settings: Partial<EventSettings>) {
 }
 
 export async function addActivity(activity: Activity) {
-  const { data, error } = await supabase
+  if (!hasSupabase) throw new Error('Supabase not configured');
+  
+  const { data, error } = await supabase!
     .from('activities')
     .insert([{
       ...activity,
