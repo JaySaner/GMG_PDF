@@ -1,6 +1,17 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * 
+ * DEPRECATED: This file is maintained for backward compatibility only.
+ * For new development, use the Supabase integration instead.
+ * 
+ * See MIGRATION_GUIDE.md for instructions on migrating to Supabase.
+ * See SUPABASE_SETUP.md for Supabase database setup.
+ * 
+ * This data is useful for:
+ * - Seeding initial database values
+ * - Understanding the data structure
+ * - Local testing without Supabase
  */
 
 import { Attendee, EventSettings, Activity } from '../types';
