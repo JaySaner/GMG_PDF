@@ -241,6 +241,20 @@ export default function App() {
 
   // Guest mode
   if (isGuestMode) {
+    // Use default settings if not loaded yet
+    const defaultSettings: EventSettings = {
+      eventName: 'GMG Delegate Portal',
+      startDate: '2026-11-12',
+      endDate: '2026-11-15',
+      venueAddress: 'GMG Global Headquarters, Dubai UAE',
+      organizerDetails: 'GMG Events | Contact: events@gmgportal.com | Phone: +971 4 555 0100',
+      logoUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHGob3oMolEkBqBNyE8tOtmRBPZBB-hongE1W7LLnCdRL8qfsaKBqHFlY6b8Dj-SZsKUzsLNanyTuThOKsoeK8npJmkt2HUBvVH-5bds3gcy4adIVUdf5V11k4h06erW1A5cvCy6LG4WxncFZLLO-R2C-auPKK7YJlu_ei3aARjNZQzjUvXKHlQLftIDC386-pjiJnFqqBAPjqMKB2drn7w-ZsFf55VBo0qczhK2cndweotEthn_s',
+      themeAccent: '#775a19',
+      coverBannerUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuASwjxXcB-Ukn7UT7IPAI91FCA9jrRqevcfzWK9JZ0_e9GE_5akWjMtucOGibgy-7zmFOcAGHDJtTsR4kE_lKtxVBfEy5AFD_Vd-vZO7-MhdUUpkuaKhNPvNwBca-YUubBfCGiCuxuJ0sno7EgVGGi_eZc-gzpbiZbWd1ViyNeHpiAcb6ZmMdh1DlcQdSAghLqTyjfQOE9RyV_3xwpvagjF-BUOa7Vpu16-sDet5Msf0KZcY8ek6Q9h',
+      enableDownloads: true,
+      enableGuestPhotoSelection: true
+    };
+
     return (
       <div className="bg-surface-bright font-sans text-on-surface min-h-screen relative">
         <div className="fixed top-6 right-6 z-50 space-y-3 pointer-events-none max-w-sm w-full">
@@ -272,30 +286,28 @@ export default function App() {
           </AnimatePresence>
         </div>
 
-        {eventSettings && (
-          <GuestAttendeePortalView 
-            eventSettings={eventSettings}
-            onAddAttendee={async (newAttendee) => {
-              try {
-                await addAttendee(newAttendee);
-                await addActivity({
-                  id: `act-${Date.now()}`,
-                  user: newAttendee.name,
-                  action: 'submitted profile via guest portal',
-                  target: newAttendee.id,
-                  timestamp: new Date().toISOString(),
-                  type: 'add'
-                });
-                triggerToast('✓ Profile submitted successfully!', 'success');
-              } catch (error) {
-                console.error('Error adding attendee:', error);
-                triggerToast('Failed to submit profile', 'error');
-              }
-            }}
-            onExitGuestMode={() => setIsGuestMode(false)}
-            onTriggerToast={triggerToast}
-          />
-        )}
+        <GuestAttendeePortalView 
+          eventSettings={eventSettings || defaultSettings}
+          onAddAttendee={async (newAttendee) => {
+            try {
+              await addAttendee(newAttendee);
+              await addActivity({
+                id: `act-${Date.now()}`,
+                user: newAttendee.name,
+                action: 'submitted profile via guest portal',
+                target: newAttendee.id,
+                timestamp: new Date().toISOString(),
+                type: 'add'
+              });
+              triggerToast('✓ Profile submitted successfully!', 'success');
+            } catch (error) {
+              console.error('Error adding attendee:', error);
+              triggerToast('Failed to submit profile', 'error');
+            }
+          }}
+          onExitGuestMode={() => setIsGuestMode(false)}
+          onTriggerToast={triggerToast}
+        />
       </div>
     );
   }
